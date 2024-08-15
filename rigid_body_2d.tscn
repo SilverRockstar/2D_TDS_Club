@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkrqvwsre272r"]
+
+[ext_resource type="Texture2D" uid="uid://b5b5vguf7pnkd" path="res://ShotgunShell.png" id="1_0mv1s"]
+[ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_2fwsg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_445gg"]
+size = Vector2(164, 66)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w5658"]
+size = Vector2(163, 66)
+
+[node name="Bullet" type="RigidBody2D"]
+script = ExtResource("1_2fwsg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_0mv1s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_445gg")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_w5658")

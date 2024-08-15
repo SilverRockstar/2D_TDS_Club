@@ -1,0 +1,132 @@
+[gd_scene load_steps=10 format=3 uid="uid://bl458sgh7iyrg"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_fr2ku"]
+[ext_resource type="Texture2D" uid="uid://c1yxhooqpomdw" path="res://Soldier.png" id="2_6xshg"]
+[ext_resource type="PackedScene" uid="uid://bxkien6ik6qre" path="res://enemy.tscn" id="3_1nu40"]
+[ext_resource type="Texture2D" uid="uid://dn7yr27e8or08" path="res://SoldierKnife.png" id="3_61ri1"]
+
+[sub_resource type="Animation" id="Animation_o0qg3"]
+resource_name = "Melee Swing"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.872665, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_jj5sf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_axq84"]
+_data = {
+"Melee Swing": SubResource("Animation_o0qg3"),
+"RESET": SubResource("Animation_jj5sf")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_41xa1"]
+size = Vector2(338, 453)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6scc4"]
+size = Vector2(455, 269)
+
+[node name="World" type="Node2D"]
+
+[node name="Player" type="CharacterBody2D" parent="." groups=["player_weapon"]]
+script = ExtResource("1_fr2ku")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(0.3, 0.3)
+position_smoothing_enabled = true
+rotation_smoothing_enabled = true
+
+[node name="SoldierGun" type="Sprite2D" parent="Player"]
+position = Vector2(-1.19209e-07, -0.999998)
+rotation = -6.28319
+scale = Vector2(2.8, 2.8)
+texture = ExtResource("2_6xshg")
+
+[node name="SoldierKnife" type="Sprite2D" parent="Player"]
+position = Vector2(-57, 38)
+scale = Vector2(2.25631, 2.10156)
+texture = ExtResource("3_61ri1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+root_node = NodePath("../SoldierKnife")
+libraries = {
+"": SubResource("AnimationLibrary_axq84")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-42.4997, 22)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_41xa1")
+
+[node name="Area2D" type="Area2D" parent="Player"]
+rotation = 1.5708
+
+[node name="Hitbox" type="CollisionShape2D" parent="Player/Area2D"]
+position = Vector2(57.5004, 41.5002)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_6scc4")
+
+[node name="Enemy" parent="." instance=ExtResource("3_1nu40")]
+position = Vector2(1451, 140)
+rotation = 1.5708
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AmmoBar" type="ProgressBar" parent="CanvasLayer"]
+modulate = Color(0.96785, 0.166776, 0, 1)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -154.0
+offset_right = 275.0
+offset_bottom = -77.0
+grow_vertical = 0
+max_value = 30.0
+show_percentage = false
+
+[node name="SlowmoBar" type="ProgressBar" parent="CanvasLayer"]
+modulate = Color(1, 0.802833, 0.09, 1)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -77.0
+offset_right = 274.0
+offset_bottom = -1.0
+grow_vertical = 0
+show_percentage = false
+
+[node name="Magazine" type="Label" parent="CanvasLayer"]
+modulate = Color(1, 0, 0.0156863, 1)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -207.0
+offset_right = 275.0
+offset_bottom = -153.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+vertical_alignment = 1

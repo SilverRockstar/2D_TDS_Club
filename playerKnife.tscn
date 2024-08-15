@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dijeqj4t5lavt"]
+
+[ext_resource type="Texture2D" uid="uid://dn7yr27e8or08" path="res://SoldierKnife.png" id="1_7br6a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_auqdj"]
+size = Vector2(373, 324)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5nuem"]
+size = Vector2(373, 324)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="SoldierKnife" type="Sprite2D" parent="."]
+position = Vector2(-0.999969, 0.999939)
+scale = Vector2(2.24654, 1.95982)
+texture = ExtResource("1_7br6a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(12.5, -17)
+shape = SubResource("RectangleShape2D_auqdj")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(12.5, -17)
+shape = SubResource("RectangleShape2D_5nuem")
